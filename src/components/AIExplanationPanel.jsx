@@ -4,59 +4,119 @@ const AIExplanationPanel = ({ explanation }) => {
   if (!explanation) return null;
 
   const severityColor = 
-    explanation.severity?.toLowerCase() === 'critical' ? 'var(--accent-red)' :
-    explanation.severity?.toLowerCase() === 'high' ? 'var(--accent-orange)' :
-    explanation.severity?.toLowerCase() === 'medium' ? 'var(--accent-yellow, #facc15)' :
-    'var(--accent-green)';
+    explanation.severity?.toLowerCase() === 'critical' ? '#ef4444' :
+    explanation.severity?.toLowerCase() === 'high' ? '#ef4444' :
+    explanation.severity?.toLowerCase() === 'medium' ? '#eab308' :
+    '#4ade80';
 
   return (
-    <div className="card fade-in" style={{ position: 'relative', overflow: 'hidden', padding: '24px', marginBottom: '24px', border: '1px solid rgba(139, 92, 246, 0.3)', boxShadow: '0 0 40px rgba(139, 92, 246, 0.1)' }}>
+    <div className="card fade-in card-ai-glow" style={{ 
+      position: 'relative', 
+      overflow: 'hidden', 
+      padding: '28px', 
+      marginBottom: '24px', 
+      border: '1px solid rgba(168, 85, 247, 0.15)',
+    }}>
       {/* Glow Effect */}
       <div style={{
-        position: 'absolute', top: -50, right: -50, width: 150, height: 150,
-        background: 'rgba(139, 92, 246, 0.15)', borderRadius: '50%', filter: 'blur(40px)', pointerEvents: 'none'
+        position: 'absolute', top: -40, right: -40, width: 140, height: 140,
+        background: 'radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%)',
+        pointerEvents: 'none'
       }}></div>
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border-glass)', paddingBottom: '16px', marginBottom: '20px' }}>
-        <h3 className="section-title" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--gradient-primary)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'space-between', 
+        borderBottom: '1px solid rgba(255,255,255,0.04)', 
+        paddingBottom: '16px', 
+        marginBottom: '20px' 
+      }}>
+        <h3 style={{ 
+          margin: 0, 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '8px', 
+          background: 'linear-gradient(135deg, #3b82f6, #a855f7)', 
+          WebkitBackgroundClip: 'text', 
+          WebkitTextFillColor: 'transparent',
+          fontSize: '1.1rem',
+          fontWeight: 700
+        }}>
           ✨ AI Security Insight
         </h3>
         
         <span style={{
-          padding: '4px 12px', borderRadius: 'var(--radius-full)', fontSize: '0.75rem', fontWeight: 600,
-          border: `1px solid ${severityColor}`, color: severityColor, background: 'rgba(0,0,0,0.2)'
+          padding: '4px 14px', 
+          borderRadius: 999, 
+          fontSize: '0.73rem', 
+          fontWeight: 600,
+          border: `1px solid ${severityColor}30`, 
+          color: severityColor, 
+          background: `${severityColor}10`
         }}>
-          ⚠️ Severity: {explanation.severity || 'Unknown'}
+          Severity: {explanation.severity || 'Unknown'}
         </span>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', fontSize: '0.9rem', color: '#a1a1aa' }}>
         
         <div>
-          <h4 style={{ color: 'var(--text-primary)', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}><span style={{ color: 'var(--accent-red)' }}>🔴</span> Threat Detected</h4>
-          <div style={{ background: 'var(--bg-glass)', padding: '10px 14px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-glass)', color: 'var(--text-primary)' }}>
+          <h4 style={{ color: '#fafafa', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', fontWeight: 600 }}>
+            <span style={{ color: '#ef4444' }}>🔴</span> Threat Detected
+          </h4>
+          <div style={{ 
+            background: 'rgba(239, 68, 68, 0.04)', 
+            padding: '12px 16px', 
+            borderRadius: '10px', 
+            border: '1px solid rgba(239, 68, 68, 0.08)', 
+            color: '#f4f4f5',
+            lineHeight: '1.6'
+          }}>
             {explanation.threat}
           </div>
         </div>
 
         <div>
-          <h4 style={{ color: 'var(--text-primary)', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}><span style={{ color: 'var(--accent-blue)' }}>📖</span> Analysis</h4>
-          <p style={{ lineHeight: '1.6' }}>{explanation.explanation}</p>
+          <h4 style={{ color: '#fafafa', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', fontWeight: 600 }}>
+            <span style={{ color: '#3b82f6' }}>📖</span> Analysis
+          </h4>
+          <p style={{ lineHeight: '1.7', margin: 0 }}>{explanation.explanation}</p>
         </div>
 
         <div>
-          <h4 style={{ color: 'var(--text-primary)', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}><span style={{ color: 'var(--accent-orange)' }}>💥</span> Potential Impact</h4>
-          <p style={{ lineHeight: '1.6' }}>{explanation.impact}</p>
+          <h4 style={{ color: '#fafafa', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', fontWeight: 600 }}>
+            <span style={{ color: '#eab308' }}>💥</span> Potential Impact
+          </h4>
+          <p style={{ lineHeight: '1.7', margin: 0 }}>{explanation.impact}</p>
         </div>
 
         <div>
-           <h4 style={{ color: 'var(--text-primary)', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}><span style={{ color: 'var(--accent-green)' }}>🛡️</span> Action Taken</h4>
-           <p style={{ lineHeight: '1.6', color: 'var(--accent-green)' }}>{explanation.action_taken}</p>
+          <h4 style={{ color: '#fafafa', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.88rem', fontWeight: 600 }}>
+            <span style={{ color: '#22c55e' }}>🛡️</span> Action Taken
+          </h4>
+          <p style={{ lineHeight: '1.7', color: '#4ade80', margin: 0 }}>{explanation.action_taken}</p>
         </div>
 
-        <div style={{ background: 'rgba(139, 92, 246, 0.05)', padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid rgba(139, 92, 246, 0.2)', marginTop: '8px' }}>
-          <h4 style={{ color: 'var(--accent-purple)', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}><span>💡</span> Recommendation</h4>
-          <p style={{ lineHeight: '1.6', color: 'var(--text-primary)' }}>{explanation.recommendation}</p>
+        <div style={{ 
+          background: 'rgba(168, 85, 247, 0.04)', 
+          padding: '18px 20px', 
+          borderRadius: '12px', 
+          border: '1px solid rgba(168, 85, 247, 0.1)', 
+          marginTop: '4px' 
+        }}>
+          <h4 style={{ 
+            color: '#a855f7', 
+            marginBottom: '6px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '8px',
+            fontSize: '0.88rem',
+            fontWeight: 600
+          }}>
+            <span>💡</span> Recommendation
+          </h4>
+          <p style={{ lineHeight: '1.7', color: '#f4f4f5', margin: 0 }}>{explanation.recommendation}</p>
         </div>
 
       </div>

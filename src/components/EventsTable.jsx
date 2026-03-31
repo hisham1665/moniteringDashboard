@@ -86,7 +86,7 @@ export default function EventsTable({ events, loading, title, compact }) {
                         {event.event_type || '—'}
                       </span>
                     </td>
-                    <td style={{ fontFamily: "'Courier New', monospace", fontSize: '0.78rem' }}>
+                    <td style={{ fontFamily: "'JetBrains Mono', 'Fira Code', monospace", fontSize: '0.78rem' }}>
                       {event.ip || '—'}
                     </td>
                     {!compact && (

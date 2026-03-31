@@ -11,16 +11,16 @@ import {
 import { Shield } from 'lucide-react';
 
 const THREAT_COLORS = [
-  '#ef4444', '#f59e0b', '#ec4899', '#8b5cf6',
-  '#3b82f6', '#00d4ff', '#10b981', '#f97316',
+  '#ef4444', '#eab308', '#f97316', '#a855f7',
+  '#3b82f6', '#22d3ee', '#22c55e', '#ec4899',
 ];
 
 const SEVERITY_COLORS = {
   critical: '#ef4444',
-  high: '#f59e0b',
-  medium: '#dba74a',
-  low: '#00d4ff',
-  none: '#555a70',
+  high: '#ef4444',
+  medium: '#eab308',
+  low: '#4ade80',
+  none: '#52525b',
 };
 
 const CustomTooltip = ({ active, payload }) => {
@@ -29,16 +29,17 @@ const CustomTooltip = ({ active, payload }) => {
   return (
     <div
       style={{
-        background: 'rgba(10,10,20,0.95)',
+        background: 'rgba(9, 9, 11, 0.95)',
         border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: 10,
-        padding: '10px 14px',
+        borderRadius: 12,
+        padding: '12px 16px',
         fontSize: '0.8rem',
-        backdropFilter: 'blur(16px)',
+        backdropFilter: 'blur(20px)',
+        boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
       }}
     >
-      <div style={{ fontWeight: 600, color: '#e8eaf0', marginBottom: 3 }}>{d.name}</div>
-      <div style={{ color: payload[0].color || '#00d4ff', fontWeight: 700 }}>
+      <div style={{ fontWeight: 600, color: '#fafafa', marginBottom: 3 }}>{d.name}</div>
+      <div style={{ color: payload[0].color || '#3b82f6', fontWeight: 700 }}>
         {d.value} event{d.value !== 1 ? 's' : ''}
       </div>
     </div>
@@ -52,10 +53,10 @@ export default function ThreatChart({ data, loading, title, isSeverity }) {
     <div className="card">
       <div className="card-header">
         <span className="card-title">
-          <Shield size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+          <Shield size={14} style={{ marginRight: 8, verticalAlign: 'middle', color: '#ef4444' }} />
           {chartTitle}
         </span>
-        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+        <span style={{ fontSize: '0.73rem', color: 'var(--text-muted)' }}>
           {data.length} type{data.length !== 1 ? 's' : ''}
         </span>
       </div>
@@ -81,7 +82,7 @@ export default function ThreatChart({ data, loading, title, isSeverity }) {
                 tick={{ fontSize: 11 }}
                 width={100}
               />
-              <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.02)' }} />
+              <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(59,130,246,0.03)' }} />
               <Bar dataKey="value" radius={[0, 6, 6, 0]} maxBarSize={24}>
                 {data.map((entry, index) => (
                   <Cell

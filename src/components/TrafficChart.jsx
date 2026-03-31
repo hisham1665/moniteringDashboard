@@ -16,15 +16,15 @@ const CustomTooltip = ({ active, payload, label }) => {
   return (
     <div
       style={{
-        background: 'rgba(10,10,20,0.95)',
+        background: 'rgba(9, 9, 11, 0.95)',
         border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: 10,
-        padding: '12px 16px',
-        backdropFilter: 'blur(16px)',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+        borderRadius: 12,
+        padding: '14px 18px',
+        backdropFilter: 'blur(20px)',
+        boxShadow: '0 12px 40px rgba(0,0,0,0.5)',
       }}
     >
-      <div style={{ fontSize: '0.72rem', color: '#8a8fa8', marginBottom: 8 }}>
+      <div style={{ fontSize: '0.72rem', color: '#52525b', marginBottom: 8, fontWeight: 500 }}>
         {label ? format(new Date(label), 'MMM dd, HH:mm') : '—'}
       </div>
       {payload.map((entry) => (
@@ -47,7 +47,7 @@ const CustomTooltip = ({ active, payload, label }) => {
               display: 'inline-block',
             }}
           />
-          <span style={{ color: '#e8eaf0' }}>{entry.name}:</span>
+          <span style={{ color: '#f4f4f5' }}>{entry.name}:</span>
           <span style={{ color: entry.color, fontWeight: 700 }}>{entry.value}</span>
         </div>
       ))}
@@ -60,7 +60,7 @@ export default function TrafficChart({ data, loading, fullWidth }) {
     <div className="card" style={fullWidth ? {} : {}}>
       <div className="card-header">
         <span className="card-title">
-          <Activity size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+          <Activity size={14} style={{ marginRight: 8, verticalAlign: 'middle', color: '#3b82f6' }} />
           Traffic Overview
         </span>
         <span className="live-indicator">
@@ -79,15 +79,15 @@ export default function TrafficChart({ data, loading, fullWidth }) {
             <AreaChart data={data} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="colorRequests" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#00d4ff" stopOpacity={0.25} />
-                  <stop offset="95%" stopColor="#00d4ff" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="colorThreats" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.25} />
-                  <stop offset="95%" stopColor="#f59e0b" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#eab308" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="#eab308" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="colorBlocked" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#ef4444" stopOpacity={0.25} />
+                  <stop offset="5%" stopColor="#ef4444" stopOpacity={0.2} />
                   <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
                 </linearGradient>
               </defs>
@@ -108,21 +108,21 @@ export default function TrafficChart({ data, loading, fullWidth }) {
                 type="monotone"
                 dataKey="requests"
                 name="Requests"
-                stroke="#00d4ff"
+                stroke="#3b82f6"
                 strokeWidth={2}
                 fill="url(#colorRequests)"
                 dot={false}
-                activeDot={{ r: 4, strokeWidth: 0 }}
+                activeDot={{ r: 4, strokeWidth: 0, fill: '#3b82f6' }}
               />
               <Area
                 type="monotone"
                 dataKey="threats"
                 name="Threats"
-                stroke="#f59e0b"
+                stroke="#eab308"
                 strokeWidth={2}
                 fill="url(#colorThreats)"
                 dot={false}
-                activeDot={{ r: 4, strokeWidth: 0 }}
+                activeDot={{ r: 4, strokeWidth: 0, fill: '#eab308' }}
               />
               <Area
                 type="monotone"
@@ -132,7 +132,7 @@ export default function TrafficChart({ data, loading, fullWidth }) {
                 strokeWidth={2}
                 fill="url(#colorBlocked)"
                 dot={false}
-                activeDot={{ r: 4, strokeWidth: 0 }}
+                activeDot={{ r: 4, strokeWidth: 0, fill: '#ef4444' }}
               />
             </AreaChart>
           </ResponsiveContainer>

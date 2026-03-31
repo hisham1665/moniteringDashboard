@@ -1,9 +1,9 @@
 import { Globe } from 'lucide-react';
 
 const riskColor = (score) => {
-  if (score >= 80) return 'var(--accent-red)';
-  if (score >= 50) return 'var(--accent-orange)';
-  return 'var(--accent-cyan)';
+  if (score >= 80) return '#ef4444';
+  if (score >= 50) return '#eab308';
+  return '#4ade80';
 };
 
 export default function TopIPs({ data, loading }) {
@@ -11,10 +11,10 @@ export default function TopIPs({ data, loading }) {
     <div className="card">
       <div className="card-header">
         <span className="card-title">
-          <Globe size={14} style={{ marginRight: 6, verticalAlign: 'middle' }} />
+          <Globe size={14} style={{ marginRight: 8, verticalAlign: 'middle', color: '#a855f7' }} />
           Top Threat IPs
         </span>
-        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+        <span style={{ fontSize: '0.73rem', color: 'var(--text-muted)' }}>
           {data.length} IP{data.length !== 1 ? 's' : ''}
         </span>
       </div>
@@ -47,30 +47,31 @@ export default function TopIPs({ data, loading }) {
                     idx < data.length - 1
                       ? '1px solid rgba(255,255,255,0.03)'
                       : 'none',
+                  transition: 'background 150ms ease',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                   <span
                     style={{
-                      width: 26,
-                      height: 26,
+                      width: 28,
+                      height: 28,
                       borderRadius: '50%',
-                      background: 'rgba(239,68,68,0.1)',
+                      background: idx < 3 ? 'rgba(239,68,68,0.1)' : 'rgba(59,130,246,0.08)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       fontSize: '0.7rem',
                       fontWeight: 700,
-                      color: 'var(--accent-red)',
+                      color: idx < 3 ? '#ef4444' : '#3b82f6',
                     }}
                   >
                     {idx + 1}
                   </span>
                   <span
                     style={{
-                      fontFamily: "'Courier New', monospace",
+                      fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
                       fontSize: '0.82rem',
-                      color: 'var(--text-primary)',
+                      color: '#f4f4f5',
                     }}
                   >
                     {item.ip}
@@ -80,7 +81,7 @@ export default function TopIPs({ data, loading }) {
                   <span
                     style={{
                       fontSize: '0.78rem',
-                      color: 'var(--text-muted)',
+                      color: '#52525b',
                     }}
                   >
                     {item.count} hit{item.count !== 1 ? 's' : ''}

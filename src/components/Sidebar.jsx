@@ -22,10 +22,9 @@ export default function Sidebar({ activeView, setActiveView, apiKey, onLogout })
     <aside className="sidebar">
       {/* Logo */}
       <div className="sidebar-logo">
-        <div className="logo-icon">🛡️</div>
         <div>
-          <h1>SecureFlow</h1>
-          <span>Security Dashboard</span>
+          <h1>Vesper</h1>
+          <span >Built in your hands , guarded in ours</span>
         </div>
       </div>
 

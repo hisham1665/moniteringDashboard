@@ -1,8 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { KeyRound } from 'lucide-react';
 
 export default function Onboarding({ onSubmit }) {
   const [key, setKey] = useState('');
+
+  useEffect(() => {
+    const tryAutoPaste = async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (text && text.trim() && text.length > 5) {
+          setKey(text.trim());
+          onSubmit(text.trim());
+        }
+      } catch (err) {
+        console.log("Could not auto-paste from clipboard", err);
+      }
+    };
+    
+    // Try on mount
+    tryAutoPaste();
+    
+    // Also try when window gains focus (e.g., user switches to this tab after copying)
+    window.addEventListener('focus', tryAutoPaste);
+    return () => window.removeEventListener('focus', tryAutoPaste);
+  }, [onSubmit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,7 +34,7 @@ export default function Onboarding({ onSubmit }) {
     <div className="onboarding">
       <div className="onboarding-card fade-in">
         <div className="logo-large">🛡️</div>
-        <h2>SecureFlow Dashboard</h2>
+        <h2>Vesper</h2>
         <p>
           Connect your application's security events by entering your project API key.
           This key links <strong>secure-flow</strong> middleware to this dashboard.

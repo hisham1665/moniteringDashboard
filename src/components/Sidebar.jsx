@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   LayoutDashboard,
   Activity,
@@ -6,6 +7,8 @@ import {
   Ban,
   Brain,
   LogOut,
+  Menu,
+  X,
 } from 'lucide-react';
 
 const navItems = [
@@ -17,47 +20,66 @@ const navItems = [
   { id: 'ai_insight', label: 'AI Insight', icon: Brain },
 ];
 
-export default function Sidebar({ activeView, setActiveView, apiKey, onLogout }) {
+export default function Sidebar({ activeView, setActiveView, apiKey, onLogout, mobileOpen, onToggleMobile }) {
+  const handleNavClick = (id) => {
+    setActiveView(id);
+    // Auto-close on mobile after navigation
+    if (onToggleMobile && window.innerWidth <= 768) {
+      onToggleMobile();
+    }
+  };
+
   return (
-    <aside className="sidebar">
-      {/* Logo */}
-      <div className="sidebar-logo">
-        <div>
-          <h1>Vesper</h1>
-          <span >Built in your hands , guarded in ours</span>
-        </div>
-      </div>
+    <>
+      {/* Mobile overlay backdrop */}
+      {mobileOpen && (
+        <div className="sidebar-overlay" onClick={onToggleMobile} />
+      )}
 
-      {/* Navigation */}
-      <nav className="sidebar-nav">
-        <div className="sidebar-section-label">Monitor</div>
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            className={activeView === item.id ? 'active' : ''}
-            onClick={() => setActiveView(item.id)}
-          >
-            <item.icon size={18} />
-            {item.label}
+      <aside className={`sidebar ${mobileOpen ? 'sidebar-open' : ''}`}>
+        {/* Logo */}
+        <div className="sidebar-logo">
+          <div>
+            <h1>Vesper</h1>
+            <span>Built in your hands , guarded in ours</span>
+          </div>
+          {/* Close button for mobile */}
+          <button className="sidebar-close-btn" onClick={onToggleMobile} aria-label="Close menu">
+            <X size={20} />
           </button>
-        ))}
-
-        <div className="sidebar-section-label" style={{ marginTop: 16 }}>
-          Account
         </div>
-        <button onClick={onLogout}>
-          <LogOut size={18} />
-          Disconnect
-        </button>
-      </nav>
 
-      {/* Footer — API Key */}
-      <div className="sidebar-footer">
-        <div className="api-key-label">Project API Key</div>
-        <div className="api-key-display">
-          {apiKey ? `${apiKey.slice(0, 8)}••••${apiKey.slice(-4)}` : '—'}
+        {/* Navigation */}
+        <nav className="sidebar-nav">
+          <div className="sidebar-section-label">Monitor</div>
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              className={activeView === item.id ? 'active' : ''}
+              onClick={() => handleNavClick(item.id)}
+            >
+              <item.icon size={18} />
+              <span className="nav-label">{item.label}</span>
+            </button>
+          ))}
+
+          <div className="sidebar-section-label" style={{ marginTop: 16 }}>
+            Account
+          </div>
+          <button onClick={onLogout}>
+            <LogOut size={18} />
+            <span className="nav-label">Disconnect</span>
+          </button>
+        </nav>
+
+        {/* Footer — API Key */}
+        <div className="sidebar-footer">
+          <div className="api-key-label">Project API Key</div>
+          <div className="api-key-display">
+            {apiKey ? `${apiKey.slice(0, 8)}••••${apiKey.slice(-4)}` : '—'}
+          </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 }

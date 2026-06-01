@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { RefreshCw, Wifi, WifiOff } from 'lucide-react';
+import { RefreshCw, Wifi, WifiOff, Menu } from 'lucide-react';
 import { useSecurityData } from './hooks/useSecurityData';
 import Sidebar from './components/Sidebar';
 import StatsCards from './components/StatsCards';
@@ -14,6 +14,7 @@ export default function App() {
   const [apiKey, setApiKey] = useState(() => localStorage.getItem('sf_api_key') || '');
   const [timeRange, setTimeRange] = useState('24h');
   const [activeView, setActiveView] = useState('overview');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const {
     events,
@@ -35,6 +36,8 @@ export default function App() {
     localStorage.setItem('sf_api_key', key);
   };
 
+  const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
+
   // Show onboarding if no API key
   if (!apiKey) {
     return <Onboarding onSubmit={handleSetApiKey} />;
@@ -47,20 +50,27 @@ export default function App() {
         setActiveView={setActiveView}
         apiKey={apiKey}
         onLogout={() => handleSetApiKey('')}
+        mobileOpen={mobileMenuOpen}
+        onToggleMobile={toggleMobileMenu}
       />
       <main className="main-content">
         {/* Header */}
         <div className="dashboard-header fade-in">
-          <div>
-            <h2>
-              {activeView === 'overview' && 'Security Overview'}
-              {activeView === 'traffic' && 'Traffic Monitor'}
-              {activeView === 'threats' && 'Threat Intelligence'}
-              {activeView === 'files' && 'File Security'}
-              {activeView === 'ips' && 'IP Management'}
-              {activeView === 'ai_insight' && 'AI Insight Report'}
-            </h2>
-            <p>Real-time security monitoring and threat analysis</p>
+          <div className="header-left">
+            <button className="mobile-menu-btn" onClick={toggleMobileMenu} aria-label="Open menu">
+              <Menu size={22} />
+            </button>
+            <div>
+              <h2>
+                {activeView === 'overview' && 'Security Overview'}
+                {activeView === 'traffic' && 'Traffic Monitor'}
+                {activeView === 'threats' && 'Threat Intelligence'}
+                {activeView === 'files' && 'File Security'}
+                {activeView === 'ips' && 'IP Management'}
+                {activeView === 'ai_insight' && 'AI Insight Report'}
+              </h2>
+              <p>Real-time security monitoring and threat analysis</p>
+            </div>
           </div>
           <div className="header-actions">
             <div className="live-indicator">

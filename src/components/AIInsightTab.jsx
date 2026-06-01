@@ -194,7 +194,7 @@ ${JSON.stringify(recentThreats, null, 2)}`;
           pointerEvents: 'none'
         }}></div>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', position: 'relative' }}>
+        <div className="ai-header-flex">
           <div>
             <h2 style={{ 
               margin: '0 0 6px 0', 
@@ -322,7 +322,7 @@ ${JSON.stringify(recentThreats, null, 2)}`;
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+          <div className="ai-report-grid">
             {/* Top Threats */}
             <div className="card fade-in fade-in-delay-1" style={{ padding: '24px' }}>
               <h3 style={{ 
